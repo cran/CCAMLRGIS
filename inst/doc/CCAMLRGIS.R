@@ -511,6 +511,24 @@ table(MyData$MyASDs)
 table(MyData$MySSRUs) 
 
 
+## ----fig.align="center",out.width="100%",message=F,dpi=200,eval=T-------------
+#Set the figure margins as c(bottom, left, top, right)
+Mypar<-par(mai=c(0,0.4,0,0))
+#Plot the bathymetry
+plot(SmallBathy,breaks=Depth_cuts,col=Depth_cols,axes=FALSE,box=FALSE,legend=FALSE)
+#Add color scale
+add_Cscale(cuts=Depth_cuts,cols=Depth_cols,fontsize=0.4,height=65,offset=600,width=25)
+par(Mypar)
+
+## ----fig.align="center",out.width="100%",message=F,dpi=200,eval=T-------------
+#Set the figure margins as c(bottom, left, top, right)
+Mypar<-par(mai=c(0,0.4,0,0))
+#Plot the bathymetry
+plot(SmallBathy,breaks=Depth_cuts2,col=Depth_cols2,axes=FALSE,box=FALSE,legend=FALSE)
+#Add color scale
+add_Cscale(cuts=Depth_cuts2,cols=Depth_cols2,fontsize=0.4,height=65,offset=600,width=25)
+par(Mypar)
+
 ## ----eval=FALSE---------------------------------------------------------------
 #  ?add_col
 #  #and
