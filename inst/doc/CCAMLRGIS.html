@@ -12,7 +12,7 @@
 
 <meta name="author" content="CCAMLR Secretariat" />
 
-<meta name="date" content="2020-06-06" />
+<meta name="date" content="2020-07-30" />
 
 <title>CCAMLRGIS R Package</title>
 
@@ -26,6 +26,22 @@ document.addEventListener('DOMContentLoaded', function(e) {
     if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
     a = h.attributes;
     while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
   }
 });
 </script>
@@ -315,7 +331,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">CCAMLRGIS R Package</h1>
 <h4 class="author">CCAMLR Secretariat</h4>
-<h4 class="date">06 Jun 2020</h4>
+<h4 class="date">30 Jul 2020</h4>
 
 
 
@@ -513,26 +529,26 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb12-2"><a href="#cb12-2"></a>Mypar&lt;-<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">mai=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.01</span>,<span class="fl">0.2</span>,<span class="fl">0.01</span>))</span>
 <span id="cb12-3"><a href="#cb12-3"></a></span>
 <span id="cb12-4"><a href="#cb12-4"></a><span class="co">#Example 1: Simple points with labels</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a>MyPoints=<span class="kw">create_Points</span>(PointData)</span>
+<span id="cb12-5"><a href="#cb12-5"></a>MyPoints=<span class="kw">create_Points</span>(<span class="dt">Input=</span>PointData)</span>
 <span id="cb12-6"><a href="#cb12-6"></a><span class="kw">plot</span>(MyPoints,<span class="dt">main=</span><span class="st">&#39;Example 1&#39;</span>,<span class="dt">cex.main=</span><span class="fl">0.5</span>,<span class="dt">cex=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)</span>
 <span id="cb12-7"><a href="#cb12-7"></a><span class="kw">text</span>(MyPoints<span class="op">$</span>x,MyPoints<span class="op">$</span>y,MyPoints<span class="op">$</span>name,<span class="dt">adj=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="op">-</span><span class="fl">0.5</span>),<span class="dt">xpd=</span><span class="ot">TRUE</span>,<span class="dt">cex=</span><span class="fl">0.5</span>)</span>
 <span id="cb12-8"><a href="#cb12-8"></a><span class="kw">box</span>()</span>
 <span id="cb12-9"><a href="#cb12-9"></a></span>
 <span id="cb12-10"><a href="#cb12-10"></a><span class="co">#Example 2: Simple points with labels, highlighting one group of points with the same name</span></span>
-<span id="cb12-11"><a href="#cb12-11"></a>MyPoints=<span class="kw">create_Points</span>(PointData)</span>
+<span id="cb12-11"><a href="#cb12-11"></a>MyPoints=<span class="kw">create_Points</span>(<span class="dt">Input=</span>PointData)</span>
 <span id="cb12-12"><a href="#cb12-12"></a><span class="kw">plot</span>(MyPoints,<span class="dt">main=</span><span class="st">&#39;Example 2&#39;</span>,<span class="dt">cex.main=</span><span class="fl">0.5</span>,<span class="dt">cex=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)</span>
 <span id="cb12-13"><a href="#cb12-13"></a><span class="kw">text</span>(MyPoints<span class="op">$</span>x,MyPoints<span class="op">$</span>y,MyPoints<span class="op">$</span>name,<span class="dt">adj=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="op">-</span><span class="fl">0.5</span>),<span class="dt">xpd=</span><span class="ot">TRUE</span>,<span class="dt">cex=</span><span class="fl">0.5</span>)</span>
 <span id="cb12-14"><a href="#cb12-14"></a><span class="kw">plot</span>(MyPoints[MyPoints<span class="op">$</span>name<span class="op">==</span><span class="st">&#39;four&#39;</span>,],<span class="dt">bg=</span><span class="st">&#39;red&#39;</span>,<span class="dt">pch=</span><span class="dv">21</span>,<span class="dt">cex=</span><span class="dv">1</span>,<span class="dt">add=</span><span class="ot">TRUE</span>)</span>
 <span id="cb12-15"><a href="#cb12-15"></a><span class="kw">box</span>()</span>
 <span id="cb12-16"><a href="#cb12-16"></a></span>
 <span id="cb12-17"><a href="#cb12-17"></a><span class="co">#Example 3: Buffered points with radius proportional to catch</span></span>
-<span id="cb12-18"><a href="#cb12-18"></a>MyPoints=<span class="kw">create_Points</span>(PointData,<span class="dt">Buffer=</span><span class="dv">1</span><span class="op">*</span>PointData<span class="op">$</span>Catch)</span>
+<span id="cb12-18"><a href="#cb12-18"></a>MyPoints=<span class="kw">create_Points</span>(<span class="dt">Input=</span>PointData,<span class="dt">Buffer=</span><span class="dv">1</span><span class="op">*</span>PointData<span class="op">$</span>Catch)</span>
 <span id="cb12-19"><a href="#cb12-19"></a><span class="kw">plot</span>(MyPoints,<span class="dt">col=</span><span class="st">&#39;green&#39;</span>,<span class="dt">main=</span><span class="st">&#39;Example 3&#39;</span>,<span class="dt">cex.main=</span><span class="fl">0.5</span>,<span class="dt">cex=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)</span>
 <span id="cb12-20"><a href="#cb12-20"></a><span class="kw">text</span>(MyPoints<span class="op">$</span>x,MyPoints<span class="op">$</span>y,MyPoints<span class="op">$</span>name,<span class="dt">adj=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="fl">0.5</span>),<span class="dt">xpd=</span><span class="ot">TRUE</span>,<span class="dt">cex=</span><span class="fl">0.5</span>)</span>
 <span id="cb12-21"><a href="#cb12-21"></a><span class="kw">box</span>()</span>
 <span id="cb12-22"><a href="#cb12-22"></a></span>
 <span id="cb12-23"><a href="#cb12-23"></a><span class="co">#Example 4: Buffered points with radius proportional to catch and clipped to the Coast</span></span>
-<span id="cb12-24"><a href="#cb12-24"></a>MyPoints=<span class="kw">create_Points</span>(PointData,<span class="dt">Buffer=</span><span class="dv">2</span><span class="op">*</span>PointData<span class="op">$</span>Catch,<span class="dt">Clip=</span><span class="ot">TRUE</span>)</span>
+<span id="cb12-24"><a href="#cb12-24"></a>MyPoints=<span class="kw">create_Points</span>(<span class="dt">Input=</span>PointData,<span class="dt">Buffer=</span><span class="dv">2</span><span class="op">*</span>PointData<span class="op">$</span>Catch,<span class="dt">Clip=</span><span class="ot">TRUE</span>)</span>
 <span id="cb12-25"><a href="#cb12-25"></a><span class="kw">plot</span>(MyPoints,<span class="dt">col=</span><span class="st">&#39;cyan&#39;</span>,<span class="dt">main=</span><span class="st">&#39;Example 4&#39;</span>,<span class="dt">cex.main=</span><span class="fl">0.5</span>,<span class="dt">cex=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)</span>
 <span id="cb12-26"><a href="#cb12-26"></a><span class="kw">plot</span>(Coast[Coast<span class="op">$</span>ID<span class="op">==</span><span class="st">&#39;All&#39;</span>,],<span class="dt">add=</span><span class="ot">TRUE</span>,<span class="dt">col=</span><span class="st">&#39;grey&#39;</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)</span>
 <span id="cb12-27"><a href="#cb12-27"></a><span class="kw">box</span>()</span></code></pre></div>
@@ -564,17 +580,17 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb16-2"><a href="#cb16-2"></a>Mypar&lt;-<span class="kw">par</span>(<span class="dt">mai=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.01</span>,<span class="fl">0.2</span>,<span class="fl">0.01</span>),<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
 <span id="cb16-3"><a href="#cb16-3"></a></span>
 <span id="cb16-4"><a href="#cb16-4"></a><span class="co">#Example 1: Simple and non-densified lines</span></span>
-<span id="cb16-5"><a href="#cb16-5"></a>MyLines=<span class="kw">create_Lines</span>(LineData)</span>
+<span id="cb16-5"><a href="#cb16-5"></a>MyLines=<span class="kw">create_Lines</span>(<span class="dt">Input=</span>LineData)</span>
 <span id="cb16-6"><a href="#cb16-6"></a><span class="kw">plot</span>(MyLines,<span class="dt">col=</span><span class="kw">rainbow</span>(<span class="kw">length</span>(MyLines)),<span class="dt">main=</span><span class="st">&#39;Example 1&#39;</span>,<span class="dt">cex.main=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="dv">1</span>)</span>
 <span id="cb16-7"><a href="#cb16-7"></a><span class="kw">box</span>()</span>
 <span id="cb16-8"><a href="#cb16-8"></a></span>
 <span id="cb16-9"><a href="#cb16-9"></a><span class="co">#Example 2: Simple and densified lines (note the curvature of the purple line)</span></span>
-<span id="cb16-10"><a href="#cb16-10"></a>MyLines=<span class="kw">create_Lines</span>(LineData,<span class="dt">Densify=</span><span class="ot">TRUE</span>)</span>
+<span id="cb16-10"><a href="#cb16-10"></a>MyLines=<span class="kw">create_Lines</span>(<span class="dt">Input=</span>LineData,<span class="dt">Densify=</span><span class="ot">TRUE</span>)</span>
 <span id="cb16-11"><a href="#cb16-11"></a><span class="kw">plot</span>(MyLines,<span class="dt">col=</span><span class="kw">rainbow</span>(<span class="kw">length</span>(MyLines)),<span class="dt">main=</span><span class="st">&#39;Example 2&#39;</span>,<span class="dt">cex.main=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="dv">1</span>)</span>
 <span id="cb16-12"><a href="#cb16-12"></a><span class="kw">box</span>()</span>
 <span id="cb16-13"><a href="#cb16-13"></a></span>
 <span id="cb16-14"><a href="#cb16-14"></a><span class="co">#Example 3: Densified, buffered and clipped lines</span></span>
-<span id="cb16-15"><a href="#cb16-15"></a>MyLines=<span class="kw">create_Lines</span>(LineData,<span class="dt">Densify=</span><span class="ot">TRUE</span>,<span class="dt">Buffer=</span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">80</span>,<span class="dv">100</span>),<span class="dt">Clip=</span><span class="ot">TRUE</span>)</span>
+<span id="cb16-15"><a href="#cb16-15"></a>MyLines=<span class="kw">create_Lines</span>(<span class="dt">Input=</span>LineData,<span class="dt">Densify=</span><span class="ot">TRUE</span>,<span class="dt">Buffer=</span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">80</span>,<span class="dv">100</span>),<span class="dt">Clip=</span><span class="ot">TRUE</span>)</span>
 <span id="cb16-16"><a href="#cb16-16"></a><span class="kw">plot</span>(MyLines,<span class="dt">col=</span><span class="kw">rainbow</span>(<span class="kw">length</span>(MyLines)),<span class="dt">main=</span><span class="st">&#39;Example 3&#39;</span>,<span class="dt">cex.main=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="dv">1</span>)</span>
 <span id="cb16-17"><a href="#cb16-17"></a><span class="kw">plot</span>(Coast[Coast<span class="op">$</span>ID<span class="op">==</span><span class="st">&#39;All&#39;</span>,],<span class="dt">col=</span><span class="st">&#39;grey&#39;</span>,<span class="dt">add=</span><span class="ot">TRUE</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)</span>
 <span id="cb16-18"><a href="#cb16-18"></a><span class="kw">box</span>()</span></code></pre></div>
@@ -585,7 +601,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb18-2"><a href="#cb18-2"></a>Mypar&lt;-<span class="kw">par</span>(<span class="dt">mai=</span><span class="kw">c</span>(<span class="fl">0.01</span>,<span class="fl">0.01</span>,<span class="fl">0.01</span>,<span class="fl">0.01</span>))</span>
 <span id="cb18-3"><a href="#cb18-3"></a></span>
 <span id="cb18-4"><a href="#cb18-4"></a><span class="co">#Buffer merged lines</span></span>
-<span id="cb18-5"><a href="#cb18-5"></a>MyLines=<span class="kw">create_Lines</span>(LineData,<span class="dt">Buffer=</span><span class="dv">10</span>,<span class="dt">SeparateBuf=</span><span class="ot">FALSE</span>)</span>
+<span id="cb18-5"><a href="#cb18-5"></a>MyLines=<span class="kw">create_Lines</span>(<span class="dt">Input=</span>LineData,<span class="dt">Buffer=</span><span class="dv">10</span>,<span class="dt">SeparateBuf=</span><span class="ot">FALSE</span>)</span>
 <span id="cb18-6"><a href="#cb18-6"></a><span class="co">#The resulting polygon has an area of:</span></span>
 <span id="cb18-7"><a href="#cb18-7"></a>MyLines<span class="op">$</span>Buffered_AreaKm2</span></code></pre></div>
 <pre><code>## [1] 222653.6</code></pre>
@@ -602,20 +618,20 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb23-2"><a href="#cb23-2"></a>Mypar&lt;-<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="dt">mai=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.01</span>,<span class="fl">0.2</span>,<span class="fl">0.01</span>))</span>
 <span id="cb23-3"><a href="#cb23-3"></a></span>
 <span id="cb23-4"><a href="#cb23-4"></a><span class="co">#Example 1: Simple and non-densified polygons</span></span>
-<span id="cb23-5"><a href="#cb23-5"></a>MyPolys=<span class="kw">create_Polys</span>(PolyData,<span class="dt">Densify=</span><span class="ot">FALSE</span>)</span>
+<span id="cb23-5"><a href="#cb23-5"></a>MyPolys=<span class="kw">create_Polys</span>(<span class="dt">Input=</span>PolyData,<span class="dt">Densify=</span><span class="ot">FALSE</span>)</span>
 <span id="cb23-6"><a href="#cb23-6"></a><span class="kw">plot</span>(MyPolys,<span class="dt">col=</span><span class="st">&#39;blue&#39;</span>,<span class="dt">main=</span><span class="st">&#39;Example 1&#39;</span>,<span class="dt">cex.main=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)</span>
 <span id="cb23-7"><a href="#cb23-7"></a><span class="kw">text</span>(MyPolys<span class="op">$</span>Labx,MyPolys<span class="op">$</span>Laby,MyPolys<span class="op">$</span>ID,<span class="dt">col=</span><span class="st">&#39;white&#39;</span>,<span class="dt">cex=</span><span class="fl">0.5</span>)</span>
 <span id="cb23-8"><a href="#cb23-8"></a><span class="kw">box</span>()</span>
 <span id="cb23-9"><a href="#cb23-9"></a></span>
 <span id="cb23-10"><a href="#cb23-10"></a><span class="co">#Example 2: Simple and densified polygons (note the curvature of iso-latitude lines)</span></span>
-<span id="cb23-11"><a href="#cb23-11"></a>MyPolys=<span class="kw">create_Polys</span>(PolyData)</span>
+<span id="cb23-11"><a href="#cb23-11"></a>MyPolys=<span class="kw">create_Polys</span>(<span class="dt">Input=</span>PolyData)</span>
 <span id="cb23-12"><a href="#cb23-12"></a><span class="kw">plot</span>(MyPolys,<span class="dt">col=</span><span class="st">&#39;red&#39;</span>,<span class="dt">main=</span><span class="st">&#39;Example 2&#39;</span>,<span class="dt">cex.main=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)</span>
 <span id="cb23-13"><a href="#cb23-13"></a><span class="kw">text</span>(MyPolys<span class="op">$</span>Labx,MyPolys<span class="op">$</span>Laby,MyPolys<span class="op">$</span>ID,<span class="dt">col=</span><span class="st">&#39;white&#39;</span>,<span class="dt">cex=</span><span class="fl">0.5</span>)</span>
 <span id="cb23-14"><a href="#cb23-14"></a><span class="kw">box</span>()</span>
 <span id="cb23-15"><a href="#cb23-15"></a></span>
 <span id="cb23-16"><a href="#cb23-16"></a><span class="co">#Example 3: Buffered and clipped polygons</span></span>
-<span id="cb23-17"><a href="#cb23-17"></a>MyPolysBefore=<span class="kw">create_Polys</span>(PolyData,<span class="dt">Buffer=</span><span class="kw">c</span>(<span class="dv">10</span>,<span class="op">-</span><span class="dv">15</span>,<span class="dv">120</span>))</span>
-<span id="cb23-18"><a href="#cb23-18"></a>MyPolysAfter=<span class="kw">create_Polys</span>(PolyData,<span class="dt">Buffer=</span><span class="kw">c</span>(<span class="dv">10</span>,<span class="op">-</span><span class="dv">15</span>,<span class="dv">120</span>),<span class="dt">Clip=</span><span class="ot">TRUE</span>)</span>
+<span id="cb23-17"><a href="#cb23-17"></a>MyPolysBefore=<span class="kw">create_Polys</span>(<span class="dt">Input=</span>PolyData,<span class="dt">Buffer=</span><span class="kw">c</span>(<span class="dv">10</span>,<span class="op">-</span><span class="dv">15</span>,<span class="dv">120</span>))</span>
+<span id="cb23-18"><a href="#cb23-18"></a>MyPolysAfter=<span class="kw">create_Polys</span>(<span class="dt">Input=</span>PolyData,<span class="dt">Buffer=</span><span class="kw">c</span>(<span class="dv">10</span>,<span class="op">-</span><span class="dv">15</span>,<span class="dv">120</span>),<span class="dt">Clip=</span><span class="ot">TRUE</span>)</span>
 <span id="cb23-19"><a href="#cb23-19"></a><span class="kw">plot</span>(MyPolysBefore,<span class="dt">col=</span><span class="st">&#39;green&#39;</span>,<span class="dt">main=</span><span class="st">&#39;Example 3&#39;</span>,<span class="dt">cex.main=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)</span>
 <span id="cb23-20"><a href="#cb23-20"></a><span class="kw">plot</span>(Coast[Coast<span class="op">$</span>ID<span class="op">==</span><span class="st">&#39;All&#39;</span>,],<span class="dt">add=</span><span class="ot">TRUE</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)</span>
 <span id="cb23-21"><a href="#cb23-21"></a><span class="kw">plot</span>(MyPolysAfter,<span class="dt">col=</span><span class="st">&#39;orange&#39;</span>,<span class="dt">add=</span><span class="ot">TRUE</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)</span>
@@ -632,17 +648,17 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb26-2"><a href="#cb26-2"></a>Mypar&lt;-<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="dt">mai=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.01</span>,<span class="fl">0.2</span>,<span class="fl">0.01</span>))</span>
 <span id="cb26-3"><a href="#cb26-3"></a></span>
 <span id="cb26-4"><a href="#cb26-4"></a><span class="co">#Example 1: Simple grid, using automatic colors</span></span>
-<span id="cb26-5"><a href="#cb26-5"></a>MyGrid=<span class="kw">create_PolyGrids</span>(GridData,<span class="dt">dlon=</span><span class="dv">2</span>,<span class="dt">dlat=</span><span class="dv">1</span>)</span>
+<span id="cb26-5"><a href="#cb26-5"></a>MyGrid=<span class="kw">create_PolyGrids</span>(<span class="dt">Input=</span>GridData,<span class="dt">dlon=</span><span class="dv">2</span>,<span class="dt">dlat=</span><span class="dv">1</span>)</span>
 <span id="cb26-6"><a href="#cb26-6"></a><span class="kw">plot</span>(MyGrid,<span class="dt">col=</span>MyGrid<span class="op">$</span>Col_Catch_sum,<span class="dt">main=</span><span class="st">&#39;Example 1&#39;</span>,<span class="dt">cex.main=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="fl">0.1</span>)</span>
 <span id="cb26-7"><a href="#cb26-7"></a><span class="kw">box</span>()</span>
 <span id="cb26-8"><a href="#cb26-8"></a></span>
 <span id="cb26-9"><a href="#cb26-9"></a><span class="co">#Example 2: Equal area grid, using automatic colors</span></span>
-<span id="cb26-10"><a href="#cb26-10"></a>MyGrid=<span class="kw">create_PolyGrids</span>(GridData,<span class="dt">Area=</span><span class="dv">10000</span>)</span>
+<span id="cb26-10"><a href="#cb26-10"></a>MyGrid=<span class="kw">create_PolyGrids</span>(<span class="dt">Input=</span>GridData,<span class="dt">Area=</span><span class="dv">10000</span>)</span>
 <span id="cb26-11"><a href="#cb26-11"></a><span class="kw">plot</span>(MyGrid,<span class="dt">col=</span>MyGrid<span class="op">$</span>Col_Catch_sum,<span class="dt">main=</span><span class="st">&#39;Example 2&#39;</span>,<span class="dt">cex.main=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="fl">0.1</span>)</span>
 <span id="cb26-12"><a href="#cb26-12"></a><span class="kw">box</span>()</span>
 <span id="cb26-13"><a href="#cb26-13"></a></span>
 <span id="cb26-14"><a href="#cb26-14"></a><span class="co">#Example 3: Equal area grid, using custom cuts and colors</span></span>
-<span id="cb26-15"><a href="#cb26-15"></a>MyGrid=<span class="kw">create_PolyGrids</span>(GridData,<span class="dt">Area=</span><span class="dv">10000</span>,<span class="dt">cuts=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">50</span>,<span class="dv">100</span>,<span class="dv">500</span>,<span class="dv">2000</span>,<span class="dv">3500</span>),<span class="dt">cols=</span><span class="kw">c</span>(<span class="st">&#39;blue&#39;</span>,<span class="st">&#39;red&#39;</span>))</span>
+<span id="cb26-15"><a href="#cb26-15"></a>MyGrid=<span class="kw">create_PolyGrids</span>(<span class="dt">Input=</span>GridData,<span class="dt">Area=</span><span class="dv">10000</span>,<span class="dt">cuts=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">50</span>,<span class="dv">100</span>,<span class="dv">500</span>,<span class="dv">2000</span>,<span class="dv">3500</span>),<span class="dt">cols=</span><span class="kw">c</span>(<span class="st">&#39;blue&#39;</span>,<span class="st">&#39;red&#39;</span>))</span>
 <span id="cb26-16"><a href="#cb26-16"></a><span class="kw">plot</span>(MyGrid,<span class="dt">col=</span>MyGrid<span class="op">$</span>Col_Catch_sum,<span class="dt">main=</span><span class="st">&#39;Example 3&#39;</span>,<span class="dt">cex.main=</span><span class="fl">0.5</span>,<span class="dt">lwd=</span><span class="fl">0.1</span>)</span>
 <span id="cb26-17"><a href="#cb26-17"></a><span class="kw">box</span>()</span></code></pre></div>
 <p><img src="data:image/png;base64,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" width="100%" style="display: block; margin: auto;" /></p>
@@ -652,7 +668,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb28-2"><a href="#cb28-2"></a>Mypar&lt;-<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>),<span class="dt">mai=</span><span class="kw">c</span>(<span class="fl">0.2</span>,<span class="fl">0.05</span>,<span class="fl">0.1</span>,<span class="fl">0.1</span>))</span>
 <span id="cb28-3"><a href="#cb28-3"></a></span>
 <span id="cb28-4"><a href="#cb28-4"></a><span class="co">#Step 1: Generate your grid</span></span>
-<span id="cb28-5"><a href="#cb28-5"></a>MyGrid=<span class="kw">create_PolyGrids</span>(GridData,<span class="dt">Area=</span><span class="dv">10000</span>)</span>
+<span id="cb28-5"><a href="#cb28-5"></a>MyGrid=<span class="kw">create_PolyGrids</span>(<span class="dt">Input=</span>GridData,<span class="dt">Area=</span><span class="dv">10000</span>)</span>
 <span id="cb28-6"><a href="#cb28-6"></a></span>
 <span id="cb28-7"><a href="#cb28-7"></a><span class="co">#Step 2: Inspect your gridded data (e.g. sum of Catch) to determine whether irregular cuts are required</span></span>
 <span id="cb28-8"><a href="#cb28-8"></a><span class="kw">hist</span>(MyGrid<span class="op">$</span>Catch_sum,<span class="dv">100</span>,<span class="dt">cex=</span><span class="fl">0.5</span>,<span class="dt">main=</span><span class="st">&#39;Frequency distribution of data&#39;</span>,</span>
@@ -686,7 +702,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>?create_Stations</span></code></pre></div>
 <p>First, create a polygon within which stations will be created:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co">#Create polygons</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a>MyPolys=<span class="kw">create_Polys</span>(PolyData,<span class="dt">Densify=</span><span class="ot">TRUE</span>)</span>
+<span id="cb31-2"><a href="#cb31-2"></a>MyPolys=<span class="kw">create_Polys</span>(<span class="dt">Input=</span>PolyData,<span class="dt">Densify=</span><span class="ot">TRUE</span>)</span>
 <span id="cb31-3"><a href="#cb31-3"></a></span>
 <span id="cb31-4"><a href="#cb31-4"></a><span class="co">#Set the figure margins as c(bottom, left, top, right)</span></span>
 <span id="cb31-5"><a href="#cb31-5"></a>Mypar&lt;-<span class="kw">par</span>(<span class="dt">mai=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
@@ -701,7 +717,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">par</span>(Mypar)</span></code></pre></div>
 <p>Example 1. Set numbers of stations, no distance constraint:</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="co">#Create polygon as shown above</span></span>
-<span id="cb33-2"><a href="#cb33-2"></a>MyPolys=<span class="kw">create_Polys</span>(PolyData,<span class="dt">Densify=</span><span class="ot">TRUE</span>)</span>
+<span id="cb33-2"><a href="#cb33-2"></a>MyPolys=<span class="kw">create_Polys</span>(<span class="dt">Input=</span>PolyData,<span class="dt">Densify=</span><span class="ot">TRUE</span>)</span>
 <span id="cb33-3"><a href="#cb33-3"></a>MyPoly=MyPolys[MyPolys<span class="op">$</span>ID<span class="op">==</span><span class="st">&#39;one&#39;</span>,]</span>
 <span id="cb33-4"><a href="#cb33-4"></a></span>
 <span id="cb33-5"><a href="#cb33-5"></a><span class="co">#optional: crop your bathymetry raster to match the extent of your polygon</span></span>
@@ -709,7 +725,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb33-7"><a href="#cb33-7"></a></span>
 <span id="cb33-8"><a href="#cb33-8"></a></span>
 <span id="cb33-9"><a href="#cb33-9"></a></span>
-<span id="cb33-10"><a href="#cb33-10"></a>MyStations=<span class="kw">create_Stations</span>(MyPoly,BathyCroped,<span class="dt">Depths=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2000</span>,<span class="op">-</span><span class="dv">1500</span>,<span class="op">-</span><span class="dv">1000</span>,<span class="op">-</span><span class="dv">550</span>),<span class="dt">N=</span><span class="kw">c</span>(<span class="dv">20</span>,<span class="dv">15</span>,<span class="dv">10</span>))</span>
+<span id="cb33-10"><a href="#cb33-10"></a>MyStations=<span class="kw">create_Stations</span>(<span class="dt">Poly=</span>MyPoly,<span class="dt">Bathy=</span>BathyCroped,<span class="dt">Depths=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2000</span>,<span class="op">-</span><span class="dv">1500</span>,<span class="op">-</span><span class="dv">1000</span>,<span class="op">-</span><span class="dv">550</span>),<span class="dt">N=</span><span class="kw">c</span>(<span class="dv">20</span>,<span class="dv">15</span>,<span class="dv">10</span>))</span>
 <span id="cb33-11"><a href="#cb33-11"></a><span class="co">#Set the figure margins as c(bottom, left, top, right)</span></span>
 <span id="cb33-12"><a href="#cb33-12"></a>Mypar&lt;-<span class="kw">par</span>(<span class="dt">mai=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
 <span id="cb33-13"><a href="#cb33-13"></a></span>
@@ -723,13 +739,13 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="kw">par</span>(Mypar)</span></code></pre></div>
 <p>Example 2. Set numbers of stations, with distance constraint:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co">#Create polygon as shown above</span></span>
-<span id="cb35-2"><a href="#cb35-2"></a>MyPolys=<span class="kw">create_Polys</span>(PolyData,<span class="dt">Densify=</span><span class="ot">TRUE</span>)</span>
+<span id="cb35-2"><a href="#cb35-2"></a>MyPolys=<span class="kw">create_Polys</span>(<span class="dt">Input=</span>PolyData,<span class="dt">Densify=</span><span class="ot">TRUE</span>)</span>
 <span id="cb35-3"><a href="#cb35-3"></a>MyPoly=MyPolys[MyPolys<span class="op">$</span>ID<span class="op">==</span><span class="st">&#39;one&#39;</span>,]</span>
 <span id="cb35-4"><a href="#cb35-4"></a></span>
 <span id="cb35-5"><a href="#cb35-5"></a><span class="co">#optional: crop your bathymetry raster to match the extent of your polygon</span></span>
 <span id="cb35-6"><a href="#cb35-6"></a>BathyCroped=raster<span class="op">::</span><span class="kw">crop</span>(SmallBathy,MyPoly)</span>
 <span id="cb35-7"><a href="#cb35-7"></a></span>
-<span id="cb35-8"><a href="#cb35-8"></a>MyStations=<span class="kw">create_Stations</span>(MyPoly,BathyCroped,</span>
+<span id="cb35-8"><a href="#cb35-8"></a>MyStations=<span class="kw">create_Stations</span>(<span class="dt">Poly=</span>MyPoly,<span class="dt">Bathy=</span>BathyCroped,</span>
 <span id="cb35-9"><a href="#cb35-9"></a>                           <span class="dt">Depths=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2000</span>,<span class="op">-</span><span class="dv">1500</span>,<span class="op">-</span><span class="dv">1000</span>,<span class="op">-</span><span class="dv">550</span>),<span class="dt">N=</span><span class="kw">c</span>(<span class="dv">20</span>,<span class="dv">15</span>,<span class="dv">10</span>),<span class="dt">dist=</span><span class="dv">10</span>)</span>
 <span id="cb35-10"><a href="#cb35-10"></a><span class="co">#Set the figure margins as c(bottom, left, top, right)</span></span>
 <span id="cb35-11"><a href="#cb35-11"></a>Mypar&lt;-<span class="kw">par</span>(<span class="dt">mai=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
@@ -746,13 +762,13 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">par</span>(Mypar)</span></code></pre></div>
 <p>Example 3. Automatic numbers of stations, with distance constraint:</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="co">#Create polygon as shown above</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a>MyPolys=<span class="kw">create_Polys</span>(PolyData,<span class="dt">Densify=</span><span class="ot">TRUE</span>)</span>
+<span id="cb37-2"><a href="#cb37-2"></a>MyPolys=<span class="kw">create_Polys</span>(<span class="dt">Input=</span>PolyData,<span class="dt">Densify=</span><span class="ot">TRUE</span>)</span>
 <span id="cb37-3"><a href="#cb37-3"></a>MyPoly=MyPolys[MyPolys<span class="op">$</span>ID<span class="op">==</span><span class="st">&#39;one&#39;</span>,]</span>
 <span id="cb37-4"><a href="#cb37-4"></a></span>
 <span id="cb37-5"><a href="#cb37-5"></a><span class="co">#optional: crop your bathymetry raster to match the extent of your polygon</span></span>
 <span id="cb37-6"><a href="#cb37-6"></a>BathyCroped=raster<span class="op">::</span><span class="kw">crop</span>(SmallBathy,MyPoly)</span>
 <span id="cb37-7"><a href="#cb37-7"></a></span>
-<span id="cb37-8"><a href="#cb37-8"></a>MyStations=<span class="kw">create_Stations</span>(MyPoly,BathyCroped,<span class="dt">Depths=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2000</span>,<span class="op">-</span><span class="dv">1500</span>,<span class="op">-</span><span class="dv">1000</span>,<span class="op">-</span><span class="dv">550</span>),<span class="dt">Nauto=</span><span class="dv">30</span>,<span class="dt">dist=</span><span class="dv">10</span>)</span>
+<span id="cb37-8"><a href="#cb37-8"></a>MyStations=<span class="kw">create_Stations</span>(<span class="dt">Poly=</span>MyPoly,<span class="dt">Bathy=</span>BathyCroped,<span class="dt">Depths=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2000</span>,<span class="op">-</span><span class="dv">1500</span>,<span class="op">-</span><span class="dv">1000</span>,<span class="op">-</span><span class="dv">550</span>),<span class="dt">Nauto=</span><span class="dv">30</span>,<span class="dt">dist=</span><span class="dv">10</span>)</span>
 <span id="cb37-9"><a href="#cb37-9"></a><span class="co">#Set the figure margins as c(bottom, left, top, right)</span></span>
 <span id="cb37-10"><a href="#cb37-10"></a>Mypar&lt;-<span class="kw">par</span>(<span class="dt">mai=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
 <span id="cb37-11"><a href="#cb37-11"></a></span>
@@ -832,7 +848,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ## 5 -63.89171  154.4327 52.32101
 ## 6 -66.35370  153.6906 78.65576</code></pre>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="co">#Example 1: get depths of locations</span></span>
-<span id="cb46-2"><a href="#cb46-2"></a>MyDataD=<span class="kw">get_depths</span>(MyData,SmallBathy)</span>
+<span id="cb46-2"><a href="#cb46-2"></a>MyDataD=<span class="kw">get_depths</span>(<span class="dt">Input=</span>MyData,<span class="dt">Bathy=</span>SmallBathy)</span>
 <span id="cb46-3"><a href="#cb46-3"></a><span class="co">#The resulting data looks like this (where &#39;d&#39; is the depth and &#39;x&#39; and &#39;y&#39; are the projected locations):</span></span>
 <span id="cb46-4"><a href="#cb46-4"></a><span class="kw">head</span>(MyDataD)</span></code></pre></div>
 <pre><code>##         Lat       Lon    Catch          x        y         d
@@ -858,9 +874,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb48-14"><a href="#cb48-14"></a></span>
 <span id="cb48-15"><a href="#cb48-15"></a></span>
 <span id="cb48-16"><a href="#cb48-16"></a><span class="co">#Example 2: get depths of locations and distance to isobath -3000m</span></span>
-<span id="cb48-17"><a href="#cb48-17"></a>MyDataD=<span class="kw">get_depths</span>(MyData,SmallBathy,<span class="dt">Isobaths=</span><span class="op">-</span><span class="dv">3000</span>,<span class="dt">IsoLocs=</span><span class="ot">TRUE</span>,<span class="dt">d=</span><span class="dv">200000</span>)</span>
+<span id="cb48-17"><a href="#cb48-17"></a>MyDataD=<span class="kw">get_depths</span>(<span class="dt">Input=</span>MyData,<span class="dt">Bathy=</span>SmallBathy,<span class="dt">Isobaths=</span><span class="op">-</span><span class="dv">3000</span>,<span class="dt">IsoLocs=</span><span class="ot">TRUE</span>,<span class="dt">d=</span><span class="dv">200000</span>)</span>
 <span id="cb48-18"><a href="#cb48-18"></a><span class="kw">plot</span>(MyDataD<span class="op">$</span>x,MyDataD<span class="op">$</span>y,<span class="dt">pch=</span><span class="dv">21</span>,<span class="dt">bg=</span><span class="st">&#39;green&#39;</span>,<span class="dt">cex=</span><span class="fl">0.75</span>,<span class="dt">lwd=</span><span class="fl">0.5</span>)</span>
-<span id="cb48-19"><a href="#cb48-19"></a><span class="kw">contour</span>(SmallBathy,<span class="dt">levels=</span><span class="op">-</span><span class="dv">3000</span>,<span class="dt">add=</span><span class="ot">TRUE</span>,<span class="dt">col=</span><span class="st">&#39;blue&#39;</span>,<span class="dt">maxpixels=</span><span class="dv">10000000</span>)</span>
+<span id="cb48-19"><a href="#cb48-19"></a>raster<span class="op">::</span><span class="kw">contour</span>(SmallBathy,<span class="dt">levels=</span><span class="op">-</span><span class="dv">3000</span>,<span class="dt">add=</span><span class="ot">TRUE</span>,<span class="dt">col=</span><span class="st">&#39;blue&#39;</span>,<span class="dt">maxpixels=</span><span class="dv">10000000</span>)</span>
 <span id="cb48-20"><a href="#cb48-20"></a><span class="kw">segments</span>(<span class="dt">x0=</span>MyDataD<span class="op">$</span>x,</span>
 <span id="cb48-21"><a href="#cb48-21"></a>         <span class="dt">y0=</span>MyDataD<span class="op">$</span>y,</span>
 <span id="cb48-22"><a href="#cb48-22"></a>         <span class="dt">x1=</span>MyDataD<span class="op">$</span>X_<span class="dv">3000</span>,</span>
@@ -874,9 +890,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>For details, type:</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>?seabed_area</span></code></pre></div>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="co">#create some polygons</span></span>
-<span id="cb51-2"><a href="#cb51-2"></a>MyPolys=<span class="kw">create_Polys</span>(PolyData,<span class="dt">Densify=</span><span class="ot">TRUE</span>)</span>
+<span id="cb51-2"><a href="#cb51-2"></a>MyPolys=<span class="kw">create_Polys</span>(<span class="dt">Input=</span>PolyData,<span class="dt">Densify=</span><span class="ot">TRUE</span>)</span>
 <span id="cb51-3"><a href="#cb51-3"></a><span class="co">#compute the seabed areas</span></span>
-<span id="cb51-4"><a href="#cb51-4"></a>FishDepth=<span class="kw">seabed_area</span>(SmallBathy,MyPolys,<span class="dt">depth_classes=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="op">-</span><span class="dv">200</span>,<span class="op">-</span><span class="dv">600</span>,<span class="op">-</span><span class="dv">1800</span>,<span class="op">-</span><span class="dv">3000</span>,<span class="op">-</span><span class="dv">5000</span>))</span>
+<span id="cb51-4"><a href="#cb51-4"></a>FishDepth=<span class="kw">seabed_area</span>(<span class="dt">Bathy=</span>SmallBathy,<span class="dt">Polys=</span>MyPolys,<span class="dt">depth_classes=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="op">-</span><span class="dv">200</span>,<span class="op">-</span><span class="dv">600</span>,<span class="op">-</span><span class="dv">1800</span>,<span class="op">-</span><span class="dv">3000</span>,<span class="op">-</span><span class="dv">5000</span>))</span>
 <span id="cb51-5"><a href="#cb51-5"></a><span class="co">#Result looks like this (note that the -600m to -1800m is renamed &#39;Fishable_area&#39;)</span></span>
 <span id="cb51-6"><a href="#cb51-6"></a><span class="kw">head</span>(FishDepth)</span></code></pre></div>
 <pre><code>##   Polys 0|-200 -200|-600 Fishable_area -1800|-3000 -3000|-5000
@@ -906,7 +922,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb56-3"><a href="#cb56-3"></a>SSRUs=<span class="kw">load_SSRUs</span>()</span>
 <span id="cb56-4"><a href="#cb56-4"></a></span>
 <span id="cb56-5"><a href="#cb56-5"></a><span class="co">#Assign ASDs and SSRUs to these locations </span></span>
-<span id="cb56-6"><a href="#cb56-6"></a>MyData=<span class="kw">assign_areas</span>(MyData,<span class="dt">Polys=</span><span class="kw">c</span>(<span class="st">&#39;ASDs&#39;</span>,<span class="st">&#39;SSRUs&#39;</span>),<span class="dt">NamesOut=</span><span class="kw">c</span>(<span class="st">&#39;MyASDs&#39;</span>,<span class="st">&#39;MySSRUs&#39;</span>))</span>
+<span id="cb56-6"><a href="#cb56-6"></a>MyData=<span class="kw">assign_areas</span>(<span class="dt">Input=</span>MyData,<span class="dt">Polys=</span><span class="kw">c</span>(<span class="st">&#39;ASDs&#39;</span>,<span class="st">&#39;SSRUs&#39;</span>),<span class="dt">NamesOut=</span><span class="kw">c</span>(<span class="st">&#39;MyASDs&#39;</span>,<span class="st">&#39;MySSRUs&#39;</span>))</span>
 <span id="cb56-7"><a href="#cb56-7"></a><span class="co">#The output data looks like this:</span></span>
 <span id="cb56-8"><a href="#cb56-8"></a><span class="kw">head</span>(MyData)</span></code></pre></div>
 <pre><code>##         Lat      Lon  MyASDs   MySSRUs
@@ -968,7 +984,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb67-3"><a href="#cb67-3"></a><span class="co">#Prepare layout for 3 sub-plots</span></span>
 <span id="cb67-4"><a href="#cb67-4"></a>Mypar&lt;-<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>),<span class="dt">mai=</span><span class="kw">c</span>(<span class="fl">0.01</span>,<span class="fl">0.01</span>,<span class="fl">0.1</span>,<span class="fl">0.6</span>))</span>
 <span id="cb67-5"><a href="#cb67-5"></a><span class="co">#Create some points</span></span>
-<span id="cb67-6"><a href="#cb67-6"></a>MyPoints=<span class="kw">create_Points</span>(PointData)</span>
+<span id="cb67-6"><a href="#cb67-6"></a>MyPoints=<span class="kw">create_Points</span>(<span class="dt">Input=</span>PointData)</span>
 <span id="cb67-7"><a href="#cb67-7"></a></span>
 <span id="cb67-8"><a href="#cb67-8"></a><span class="co">#Example 1: Add default cols and cuts</span></span>
 <span id="cb67-9"><a href="#cb67-9"></a>MyCols=<span class="kw">add_col</span>(MyPoints<span class="op">$</span>Nfishes) </span>
@@ -998,7 +1014,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1"></a><span class="co">#Adding colors to a grid with custom cuts (see also the last example in section 2.1.)</span></span>
 <span id="cb69-2"><a href="#cb69-2"></a></span>
 <span id="cb69-3"><a href="#cb69-3"></a><span class="co">#Step 1: Generate your grid</span></span>
-<span id="cb69-4"><a href="#cb69-4"></a>MyGrid=<span class="kw">create_PolyGrids</span>(GridData,<span class="dt">Area=</span><span class="dv">10000</span>)</span>
+<span id="cb69-4"><a href="#cb69-4"></a>MyGrid=<span class="kw">create_PolyGrids</span>(<span class="dt">Input=</span>GridData,<span class="dt">Area=</span><span class="dv">10000</span>)</span>
 <span id="cb69-5"><a href="#cb69-5"></a></span>
 <span id="cb69-6"><a href="#cb69-6"></a><span class="co">#Step 2: Inspect your gridded data (e.g. hist(MyGrid$Catch_sum,100))</span></span>
 <span id="cb69-7"><a href="#cb69-7"></a><span class="co">#to determine whether irregular cuts are required.</span></span>
@@ -1028,7 +1044,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1"></a><span class="co">#Adding a color scale and a legend</span></span>
 <span id="cb73-2"><a href="#cb73-2"></a></span>
 <span id="cb73-3"><a href="#cb73-3"></a><span class="co">#Create some point data</span></span>
-<span id="cb73-4"><a href="#cb73-4"></a>MyPoints=<span class="kw">create_Points</span>(PointData)</span>
+<span id="cb73-4"><a href="#cb73-4"></a>MyPoints=<span class="kw">create_Points</span>(<span class="dt">Input=</span>PointData)</span>
 <span id="cb73-5"><a href="#cb73-5"></a></span>
 <span id="cb73-6"><a href="#cb73-6"></a><span class="co">#Crop the bathymetry to match the extent of MyPoints (extended extent)</span></span>
 <span id="cb73-7"><a href="#cb73-7"></a>BathyCr=raster<span class="op">::</span><span class="kw">crop</span>(SmallBathy,raster<span class="op">::</span><span class="kw">extend</span>(raster<span class="op">::</span><span class="kw">extent</span>(MyPoints),<span class="dv">100000</span>))</span>
