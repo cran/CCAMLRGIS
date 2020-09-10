@@ -1,6 +1,6 @@
 ## ---- echo = FALSE, message = FALSE-------------------------------------------
 library(CCAMLRGIS)
-set.seed(1234)
+set.seed(12345)
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  install.packages("CCAMLRGIS")
@@ -32,7 +32,7 @@ par(Mypar)
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  
-#  #Step 1: Download the global GEBCO_2019 Grid in netCDF format (11 Gbytes, 12 Gbytes uncompressed), from:
+#  #Step 1: Download the global GEBCO Grid, from:
 #  #http://www.gebco.net/data_and_products/gridded_bathymetry_data/
 #  
 #  #Step 2: load the 'raster' and 'rgeos' libraries
@@ -40,7 +40,7 @@ par(Mypar)
 #  library(rgeos)
 #  
 #  #Step 3: Read the data
-#  G=raster(" Path to the folder containing the GEBCO data /GEBCO_2019.nc")
+#  G=raster(" Path to the folder containing the GEBCO data /GEBCO_YearXXXX.nc")
 #  
 #  #Step 4: Crop the data to below 40 degrees South
 #  G=crop(G,extent(-180,180,-90,-40))
@@ -422,11 +422,10 @@ par(Mypar)
 #  RBs=load_RBs()
 #  SSMUs=load_SSMUs()
 #  MAs=load_MAs()
-#  RefAreas=load_RefAreas()
 #  MPAs=load_MPAs()
 #  
 #  #Save as .RData file (here in the temp directory)
-#  save(list=c('ASDs','EEZs','Coastline','SSRUs','RBs','SSMUs','MAs','RefAreas','MPAs'),
+#  save(list=c('ASDs','EEZs','Coastline','SSRUs','RBs','SSMUs','MAs','MPAs'),
 #       file = file.path(tempdir(), "CCAMLRLayers.RData"), compress='xz')
 #  
 #  #Later, when offline load layers:
@@ -510,6 +509,15 @@ table(MyData$MyASDs)
 #count of locations per SSRU
 table(MyData$MySSRUs) 
 
+
+## ----message=FALSE,eval=TRUE--------------------------------------------------
+
+#The input data looks like this:
+head(PointData)
+#Generate a dataframe with random locations
+MyData=project_data(Input=PointData,NamesIn=c('Lat','Lon'),NamesOut=c('Projected_Y','Projectd_X'),append=TRUE)
+#The output data looks like this:
+head(MyData)
 
 ## ----fig.align="center",out.width="100%",message=F,dpi=200,eval=T-------------
 #Set the figure margins as c(bottom, left, top, right)
