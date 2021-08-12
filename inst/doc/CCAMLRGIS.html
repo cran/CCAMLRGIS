@@ -12,7 +12,7 @@
 
 <meta name="author" content="CCAMLR Secretariat" />
 
-<meta name="date" content="2021-06-18" />
+<meta name="date" content="2021-08-12" />
 
 <title>CCAMLRGIS R Package</title>
 
@@ -141,7 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <h1 class="title toc-ignore">CCAMLRGIS R Package</h1>
 <h4 class="author">CCAMLR Secretariat</h4>
-<h4 class="date">18 Jun 2021</h4>
+<h4 class="date">12 Aug 2021</h4>
 
 
 
@@ -228,51 +228,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="basemaps" class="section level2">
 <h2>1. Basemaps</h2>
-<p>Prior to detailing the package’s capabilities, a set of basic commands are shown here to display a few core mapping elements. In a first instance, the code used to produce the bathymetry raster included in the package (‘SmallBathy’) is shown, and may be used to produce a raster at a higher resolution:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Step 1: Download the global GEBCO Grid, from:</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#http://www.gebco.net/data_and_products/gridded_bathymetry_data/</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Step 2: load the &#39;raster&#39; and &#39;rgeos&#39; libraries</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgeos)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Step 3: Read the data</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>G<span class="ot">=</span><span class="fu">raster</span>(<span class="st">&quot; Path to the folder containing the GEBCO data /GEBCO_YearXXXX.nc&quot;</span>)</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Step 4: Crop the data to below 40 degrees South</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>G<span class="ot">=</span><span class="fu">crop</span>(G,<span class="fu">extent</span>(<span class="sc">-</span><span class="dv">180</span>,<span class="dv">180</span>,<span class="sc">-</span><span class="dv">90</span>,<span class="sc">-</span><span class="dv">40</span>))</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Step 5: Project the data using the CCAMLR projection</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>Gp<span class="ot">=</span><span class="fu">projectRaster</span>(G, <span class="at">crs=</span><span class="fu">proj4string</span>(CCAMLRp))</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Step 6: Mask the data using a buffered contour of the Convention area</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#load ASDs, buffer them and extract the outer polygon (first polygon within the list of polygons)</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>ASDs<span class="ot">=</span><span class="fu">load_ASDs</span>()</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#Build 500km contour</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>Contour<span class="ot">=</span><span class="fu">gBuffer</span>(ASDs,<span class="at">width=</span><span class="dv">500000</span>,<span class="at">quadsegs =</span> <span class="dv">25</span>)</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract outer boundary (first polygon)</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>pol<span class="ot">=</span>Contour<span class="sc">@</span>polygons[[<span class="dv">1</span>]]<span class="sc">@</span>Polygons[<span class="dv">1</span>]</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>pol<span class="ot">=</span><span class="fu">Polygons</span>(pol,<span class="at">ID=</span><span class="st">&#39;1&#39;</span>)</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>pol<span class="ot">=</span><span class="fu">SpatialPolygons</span>(<span class="fu">list</span>(pol),<span class="at">proj4string =</span> <span class="fu">CRS</span>(CCAMLRp))</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">#Apply mask</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>Gpm<span class="ot">=</span><span class="fu">mask</span>(Gp, pol)</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">#Step 7: Clamp the raster to exclude values higher than 500m</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>Gpmc<span class="ot">=</span><span class="fu">clamp</span>(Gpm, <span class="at">upper=</span><span class="dv">500</span>,<span class="at">useValues=</span><span class="cn">FALSE</span>)</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">#At this point, you may export the data and use it in its native resolution</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co">#Export:</span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="fu">writeRaster</span>(Gpmc,<span class="st">&quot;GEBCOpmc.tif&quot;</span>)</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co">#to re-Import:</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>Gpmc<span class="ot">=</span><span class="fu">raster</span>(<span class="st">&#39; Path to the folder containing the GEBCO data /GEBCOpmc.tif&#39;</span>)</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co">#Or, resample it (e.g., at a 500m resolution, using the nearest neighbor method):</span></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>newR<span class="ot">=</span><span class="fu">raster</span>(<span class="at">crs=</span><span class="fu">crs</span>(Gpmc), <span class="at">ext=</span><span class="fu">extent</span>(Gpmc), <span class="at">resolution=</span><span class="dv">500</span>)</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>Gr<span class="ot">=</span><span class="fu">resample</span>(Gpmc,newR,<span class="at">method=</span><span class="st">&quot;ngb&quot;</span>)</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co">#Export:</span></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="fu">writeRaster</span>(Gr,<span class="st">&quot;GEBCOpmcr500NN.tif&quot;</span>)</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="co">#to re-Import:</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>Gpmcr500N<span class="ot">=</span><span class="fu">raster</span>(<span class="st">&#39; Path to the folder containing the data /GEBCOpmc.tif&#39;</span>)</span></code></pre></div>
+<p>Prior to detailing the package’s capabilities, a set of basic commands are shown here to display a few core mapping elements. All scripts use the low-resolution bathymetry raster included in the package (‘SmallBathy’). In order to obtain higher resolution bathymetry data, use the <em>Load_Bathy()</em> function:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#A simple map:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Bathy<span class="ot">=</span><span class="fu">load_Bathy</span>(<span class="at">LocalFile =</span> <span class="cn">FALSE</span>,<span class="at">Res=</span><span class="dv">5000</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Bathy, <span class="at">breaks=</span>Depth_cuts,<span class="at">col=</span>Depth_cols,<span class="at">axes=</span><span class="cn">FALSE</span>,<span class="at">box=</span><span class="cn">FALSE</span>,<span class="at">legend=</span><span class="cn">FALSE</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Please refer to ?load_Bathy for more details, including how to save the bathymetry data</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#so that you do not have to re-download it every time you need it.</span></span></code></pre></div>
 <div id="circumpolar-map" class="section level4">
 <h4>Circumpolar map:</h4>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Load ASDs and EEZs</span></span>
@@ -501,7 +463,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="create-stations" class="section level3">
 <h3>2.2. Create Stations</h3>
-<p>This function was designed to create random point locations inside a polygon and within bathymetry strata constraints. A distance constraint between stations may also be used if desired.</p>
+<p>This function was designed to create random point locations inside a polygon and within bathymetry strata constraints. A distance constraint between stations may also be used if desired. The examples below use the ‘SmallBathy’ data for illustrative purposes; users should use a higher resolution bathymetry dataset instead, as obtained via the <em>load_Bathy()</em> function.</p>
 <p>For details, type:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>?create_Stations</span></code></pre></div>
 <p>More examples are available <a href="https://github.com/ccamlr/CCAMLRGIS">here</a>.</p>
@@ -552,7 +514,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>3.1. Online use</h3>
 <p>Download the up-to-date spatial layers from the online CCAMLRGIS and load them to your environment.</p>
 <p>For details, type:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>?load_ASDs</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>?load_ASDs</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>?load_Bathy</span></code></pre></div>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Load ASDs and EEZs (if you haven&#39;t yet, uncomment the following lines)</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ASDs=load_ASDs()</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># EEZs=load_EEZs()</span></span>
@@ -586,13 +549,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Later, when offline load layers:</span></span>
 <span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">&quot;CCAMLRLayers.RData&quot;</span>))</span></code></pre></div>
+<p>The load_Bathy() function may also be used to download and store bathymetry data for later use, see ?load_Bathy for details.</p>
 </div>
 </div>
 <div id="other-functions" class="section level2">
 <h2>4. Other functions</h2>
 <div id="get_depths" class="section level3">
 <h3>4.1. get_depths</h3>
-<p>Given a bathymetry raster and a an input dataframe of latitudes/longitudes, this function computes the depths at these locations. Optionally it can also compute the horizontal distance of locations to chosen isobaths.</p>
+<p>Given a bathymetry raster and a an input dataframe of latitudes/longitudes, this function computes the depths at these locations. Optionally it can also compute the horizontal distance of locations to chosen isobaths. The examples below use the ‘SmallBathy’ data for illustrative purposes; users should use a higher resolution bathymetry dataset instead, as obtained via the <em>load_Bathy()</em> function.</p>
 <p>For details, type:</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>?get_depths</span></code></pre></div>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Generate a dataframe</span></span>
@@ -647,7 +611,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="seabed_area" class="section level3">
 <h3>4.2. seabed_area</h3>
-<p>Function to calculate planimetric seabed area within polygons and depth strata in square kilometers. Its accuracy depends on the input bathymetry raster.</p>
+<p>Function to calculate planimetric seabed area within polygons and depth strata in square kilometers. Its accuracy depends on the input bathymetry raster. The examples below use the ‘SmallBathy’ data for illustrative purposes; users should use a higher resolution bathymetry dataset instead, as obtained via the <em>load_Bathy()</em> function.</p>
 <p>For details, type:</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>?seabed_area</span></code></pre></div>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create some polygons</span></span>
@@ -733,7 +697,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>5. Adding colors, legends and labels</h2>
 <div id="bathymetry-colors" class="section level3">
 <h3>5.1. Bathymetry colors</h3>
-<p>Coloring bathymetry requires a vector of depth classes and a vector of colors. Colors are applied between depth classes (so there is one less color than there are depth classes). Two sets of bathymetry colors are included in the package. One simply colors the bathymetry in shades of blue (Depth_cols and Depth_cuts), the other adds shades of green to highlight the Fishable Depth (600-1800m; Depth_cols2 and Depth_cuts2).</p>
+<p>Coloring bathymetry requires a vector of depth classes and a vector of colors. Colors are applied between depth classes (so there is one less color than there are depth classes). Two sets of bathymetry colors are included in the package. One simply colors the bathymetry in shades of blue (Depth_cols and Depth_cuts), the other adds shades of green to highlight the Fishable Depth (600-1800m; Depth_cols2 and Depth_cuts2). The examples below use the ‘SmallBathy’ data for illustrative purposes; users should use a higher resolution bathymetry dataset instead, as obtained via the <em>load_Bathy()</em> function.</p>
 <div id="simple-set-of-colors" class="section level4">
 <h4>Simple set of colors:</h4>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Set the figure margins as c(bottom, left, top, right)</span></span>

@@ -31,52 +31,12 @@ par(Mypar)
 
 
 ## ----eval=FALSE---------------------------------------------------------------
+#  #A simple map:
+#  Bathy=load_Bathy(LocalFile = FALSE,Res=5000)
+#  plot(Bathy, breaks=Depth_cuts,col=Depth_cols,axes=FALSE,box=FALSE,legend=FALSE)
 #  
-#  #Step 1: Download the global GEBCO Grid, from:
-#  #http://www.gebco.net/data_and_products/gridded_bathymetry_data/
-#  
-#  #Step 2: load the 'raster' and 'rgeos' libraries
-#  library(raster)
-#  library(rgeos)
-#  
-#  #Step 3: Read the data
-#  G=raster(" Path to the folder containing the GEBCO data /GEBCO_YearXXXX.nc")
-#  
-#  #Step 4: Crop the data to below 40 degrees South
-#  G=crop(G,extent(-180,180,-90,-40))
-#  
-#  #Step 5: Project the data using the CCAMLR projection
-#  Gp=projectRaster(G, crs=proj4string(CCAMLRp))
-#  
-#  #Step 6: Mask the data using a buffered contour of the Convention area
-#  #load ASDs, buffer them and extract the outer polygon (first polygon within the list of polygons)
-#  ASDs=load_ASDs()
-#  #Build 500km contour
-#  Contour=gBuffer(ASDs,width=500000,quadsegs = 25)
-#  #Extract outer boundary (first polygon)
-#  pol=Contour@polygons[[1]]@Polygons[1]
-#  pol=Polygons(pol,ID='1')
-#  pol=SpatialPolygons(list(pol),proj4string = CRS(CCAMLRp))
-#  #Apply mask
-#  Gpm=mask(Gp, pol)
-#  
-#  #Step 7: Clamp the raster to exclude values higher than 500m
-#  Gpmc=clamp(Gpm, upper=500,useValues=FALSE)
-#  
-#  #At this point, you may export the data and use it in its native resolution
-#  #Export:
-#  writeRaster(Gpmc,"GEBCOpmc.tif")
-#  #to re-Import:
-#  Gpmc=raster(' Path to the folder containing the GEBCO data /GEBCOpmc.tif')
-#  
-#  #Or, resample it (e.g., at a 500m resolution, using the nearest neighbor method):
-#  newR=raster(crs=crs(Gpmc), ext=extent(Gpmc), resolution=500)
-#  Gr=resample(Gpmc,newR,method="ngb")
-#  #Export:
-#  writeRaster(Gr,"GEBCOpmcr500NN.tif")
-#  #to re-Import:
-#  Gpmcr500N=raster(' Path to the folder containing the data /GEBCOpmc.tif')
-#  
+#  #Please refer to ?load_Bathy for more details, including how to save the bathymetry data
+#  #so that you do not have to re-download it every time you need it.
 
 ## ----fig.align="center",out.width="100%",message=FALSE,dpi=200,eval=TRUE------
 #Load ASDs and EEZs
@@ -341,6 +301,7 @@ par(Mypar)
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  ?load_ASDs
+#  ?load_Bathy
 
 ## ----fig.align="center",out.width="100%",message=FALSE,dpi=200,eval=TRUE------
 
