@@ -1,8 +1,8 @@
 Type: Package
 Package: CCAMLRGIS
 Title: Antarctic Spatial Data Manipulation
-Version: 4.0.0
-Date: 2022-05-10
+Version: 4.0.1
+Date: 2022-08-22
 Authors@R: 
     c(person("Stephane","Thanassekos",role = c("aut", "cre"), email = "stephane.thanassekos@ccamlr.org"),
     person("Keith", "Reid", role = "aut"),
@@ -21,11 +21,11 @@ URL: https://github.com/ccamlr/CCAMLRGIS
 Encoding: UTF-8
 LazyData: true
 Imports: dplyr, geosphere, terra, graphics, raster, grDevices, magrittr
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 Suggests: knitr, rmarkdown, testthat
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2022-05-10 02:43:47 UTC; stephane
+Packaged: 2022-08-22 05:12:05 UTC; stephane
 Author: Stephane Thanassekos [aut, cre],
   Keith Reid [aut],
   Lucy Robinson [aut],
@@ -33,4 +33,4 @@ Author: Stephane Thanassekos [aut, cre],
   Roger Bivand [ctb]
 Maintainer: Stephane Thanassekos <stephane.thanassekos@ccamlr.org>
 Repository: CRAN
-Date/Publication: 2022-05-10 03:20:02 UTC
+Date/Publication: 2022-08-22 06:30:09 UTC
