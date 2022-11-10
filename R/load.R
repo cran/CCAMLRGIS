@@ -17,14 +17,9 @@
 #' ASDs=load_ASDs()
 #' plot(st_geometry(ASDs))
 #' 
-#' #If going offline in the future: load and save as RData when online,
-#' #then reload RData when offline:
-#' ASDs=load_ASDs()
-#' EEZs=load_EEZs()
-#' #N.B.: replace tempdir() with folder location of your choice
-#' save(list=c('ASDs','EEZs'), file = file.path(tempdir(), "CCAMLRLayers.RData"))
-#' rm(ASDs,EEZs)
-#' load(file.path(tempdir(), "CCAMLRLayers.RData"))
+#' #For offline use, see:
+#' #https://github.com/ccamlr/CCAMLRGIS#32-offline-use
+#' 
 #' 
 #' }
 
@@ -55,14 +50,8 @@ load_ASDs=function(){
 #' SSRUs=load_SSRUs()
 #' plot(st_geometry(SSRUs))
 #' 
-#' #If going offline in the future: load and save as RData when online,
-#' #then reload RData when offline:
-#' SSRUs=load_SSRUs()
-#' EEZs=load_EEZs()
-#' #N.B.: replace tempdir() with folder location of your choice
-#' save(list=c('SSRUs','EEZs'), file = file.path(tempdir(), "CCAMLRLayers.RData"))
-#' rm(SSRUs,EEZs)
-#' load(file.path(tempdir(), "CCAMLRLayers.RData"))
+#' #For offline use, see:
+#' #https://github.com/ccamlr/CCAMLRGIS#32-offline-use
 #' 
 #' }
 #' 
@@ -94,14 +83,8 @@ load_SSRUs=function(){
 #' Coastline=load_Coastline()
 #' plot(st_geometry(Coastline))
 #' 
-#' #If going offline in the future: load and save as RData when online,
-#' #then reload RData when offline:
-#' Coastline=load_Coastline()
-#' EEZs=load_EEZs()
-#' #N.B.: replace tempdir() with folder location of your choice
-#' save(list=c('Coastline','EEZs'), file = file.path(tempdir(), "CCAMLRLayers.RData"))
-#' rm(Coastline,EEZs)
-#' load(file.path(tempdir(), "CCAMLRLayers.RData"))
+#' #For offline use, see:
+#' #https://github.com/ccamlr/CCAMLRGIS#32-offline-use
 #' 
 #' }
 #' 
@@ -132,14 +115,8 @@ load_Coastline=function(){
 #' RBs=load_RBs()
 #' plot(st_geometry(RBs))
 #' 
-#' #If going offline in the future: load and save as RData when online,
-#' #then reload RData when offline:
-#' RBs=load_RBs()
-#' EEZs=load_EEZs()
-#' #N.B.: replace tempdir() with folder location of your choice
-#' save(list=c('RBs','EEZs'), file = file.path(tempdir(), "CCAMLRLayers.RData"))
-#' rm(RBs,EEZs)
-#' load(file.path(tempdir(), "CCAMLRLayers.RData"))
+#' #For offline use, see:
+#' #https://github.com/ccamlr/CCAMLRGIS#32-offline-use
 #' 
 #' }
 #' 
@@ -170,14 +147,8 @@ load_RBs=function(){
 #' SSMUs=load_SSMUs()
 #' plot(st_geometry(SSMUs))
 #' 
-#' #If going offline in the future: load and save as RData when online,
-#' #then reload RData when offline:
-#' SSMUs=load_SSMUs()
-#' EEZs=load_EEZs()
-#' #N.B.: replace tempdir() with folder location of your choice
-#' save(list=c('SSMUs','EEZs'), file = file.path(tempdir(), "CCAMLRLayers.RData"))
-#' rm(SSMUs,EEZs)
-#' load(file.path(tempdir(), "CCAMLRLayers.RData"))
+#' #For offline use, see:
+#' #https://github.com/ccamlr/CCAMLRGIS#32-offline-use
 #' 
 #' }
 #' 
@@ -208,14 +179,8 @@ load_SSMUs=function(){
 #' MAs=load_MAs()
 #' plot(st_geometry(MAs))
 #' 
-#' #If going offline in the future: load and save as RData when online,
-#' #then reload RData when offline:
-#' MAs=load_MAs()
-#' EEZs=load_EEZs()
-#' #N.B.: replace tempdir() with folder location of your choice
-#' save(list=c('MAs','EEZs'), file = file.path(tempdir(), "CCAMLRLayers.RData"))
-#' rm(MAs,EEZs)
-#' load(file.path(tempdir(), "CCAMLRLayers.RData"))
+#' #For offline use, see:
+#' #https://github.com/ccamlr/CCAMLRGIS#32-offline-use
 #' 
 #' }
 #' 
@@ -246,14 +211,8 @@ load_MAs=function(){
 #' MPAs=load_MPAs()
 #' plot(st_geometry(MPAs))
 #' 
-#' #If going offline in the future: load and save as RData when online,
-#' #then reload RData when offline:
-#' MPAs=load_MPAs()
-#' EEZs=load_EEZs()
-#' #N.B.: replace tempdir() with folder location of your choice
-#' save(list=c('MPAs','EEZs'), file = file.path(tempdir(), "CCAMLRLayers.RData"))
-#' rm(MPAs,EEZs)
-#' load(file.path(tempdir(), "CCAMLRLayers.RData"))
+#' #For offline use, see:
+#' #https://github.com/ccamlr/CCAMLRGIS#32-offline-use
 #' 
 #' }
 #' 
@@ -285,14 +244,8 @@ load_MPAs=function(){
 #' EEZs=load_EEZs()
 #' plot(st_geometry(EEZs))
 #' 
-#' #If going offline in the future: load and save as RData when online,
-#' #then reload RData when offline:
-#' MPAs=load_MPAs()
-#' EEZs=load_EEZs()
-#' #N.B.: replace tempdir() with folder location of your choice
-#' save(list=c('MPAs','EEZs'), file = file.path(tempdir(), "CCAMLRLayers.RData"))
-#' rm(MPAs,EEZs)
-#' load(file.path(tempdir(), "CCAMLRLayers.RData"))
+#' #For offline use, see:
+#' #https://github.com/ccamlr/CCAMLRGIS#32-offline-use
 #' 
 #' }
 #' 
@@ -332,7 +285,7 @@ load_EEZs=function(){
 #' @seealso
 #' \code{\link{add_col}}, \code{\link{add_Cscale}}, \code{\link{Depth_cols}}, \code{\link{Depth_cuts}},
 #' \code{\link{Depth_cols2}}, \code{\link{Depth_cuts2}}, \code{\link{get_depths}},
-#' \code{\link{create_Stations}},
+#' \code{\link{create_Stations}}, \code{\link{get_iso_polys}},
 #' \code{\link{SmallBathy}}.
 #' 
 #' @references GEBCO Compilation Group (2021) GEBCO 2021 Grid (doi:10.5285/c6612cbe-50b3-0cff-e053-6c86abc09f8f) 
