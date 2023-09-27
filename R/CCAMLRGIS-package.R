@@ -35,6 +35,7 @@ utils::globalVariables(c('CCAMLRp','Coast','Depth_cols','Depth_cuts','Depth_cols
 #' 
 #' @section Vignette:
 #' To learn more about CCAMLRGIS, start with the GitHub ReadMe (see \url{https://github.com/ccamlr/CCAMLRGIS#table-of-contents}).
+#' Some basemaps are given here \url{https://github.com/ccamlr/CCAMLRGIS/blob/master/Basemaps/Basemaps.md}
 #' 
 #' @seealso 
 #' The CCAMLRGIS package relies on several other package which users may want to familiarize themselves with,
@@ -51,10 +52,11 @@ utils::globalVariables(c('CCAMLRp','Coast','Depth_cols','Depth_cuts','Depth_cols
 #' @importFrom grDevices colorRampPalette recordPlot replayPlot chull col2rgb rgb
 #' @importFrom graphics abline legend lines par plot rect segments text  
 #' @importFrom stats median quantile sd
-#' @importFrom terra as.polygons clamp classify click crop expanse ext extend extract mask plot rast vect
+#' @importFrom terra as.polygons clamp classify click crop expanse ext extend extract mask plot project rast vect
 #' @importFrom utils download.file edit globalVariables menu read.csv setTxtProgressBar txtProgressBar   
 #' @importFrom magrittr %>%
 #' @importFrom stars st_as_stars st_contour
 #' @importFrom bezier bezier
+#' @importFrom lwgeom st_transform_proj
 ## usethis namespace: end
 NULL
